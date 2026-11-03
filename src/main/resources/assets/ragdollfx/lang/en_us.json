@@ -1,0 +1,8 @@
+{
+  "ragdollfx.config.title": "Ragdoll FX",
+  "ragdollfx.config.enabled": "Ragdoll corpses",
+  "ragdollfx.config.dismember": "Dismemberment",
+  "ragdollfx.config.blood": "Blood",
+  "ragdollfx.config.players": "Player ragdolls",
+  "ragdollfx.config.lifetime": "Corpse lifetime: %s s"
+}

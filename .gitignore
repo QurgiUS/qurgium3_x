@@ -1,0 +1,9 @@
+/.gradle/
+/build/
+/run/
+/obf/
+/pgdist/
+*.zip
+.idea/
+*.class
+*.log

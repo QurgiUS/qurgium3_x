@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "id": "ragdollfx",
+  "version": "${version}",
+  "name": "Ragdoll FX",
+  "description": "Mobs fall over when they die, come apart and leave blood. Client side, works on any server.",
+  "authors": ["goent"],
+  "license": "MIT",
+  "icon": "assets/ragdollfx/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": ["dev.ragdollfx.mc.RagdollFxClient"],
+    "modmenu": ["dev.ragdollfx.mc.compat.ModMenuIntegration"]
+  },
+  "mixins": ["ragdollfx.mixins.json"],
+  "depends": { "fabricloader": ">=0.16", "fabric-api": "*", "minecraft": "~26.3" },
+  "suggests": { "modmenu": "*" }
+}

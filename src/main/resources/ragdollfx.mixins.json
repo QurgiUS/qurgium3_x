@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "package": "dev.ragdollfx.mc.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "client": [
+    "LivingEntityRendererMixin",
+    "LivingEntityRendererInvoker",
+    "LivingEntityRenderStateMixin",
+    "ModelPartAccessor",
+    "CubeAccessor"
+  ],
+  "injectors": { "defaultRequire": 1 }
+}

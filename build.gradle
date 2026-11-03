@@ -1,0 +1,57 @@
+plugins {
+    id 'net.fabricmc.fabric-loom' version "${loom_version}"
+}
+
+version = project.mod_version
+group = project.maven_group
+base { archivesName = project.archives_base_name }
+
+repositories {
+    mavenCentral()
+    maven { url = 'https://maven.terraformersmc.com/releases/' }
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    implementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+    compileOnly "com.terraformersmc:modmenu:${project.modmenu_version}"
+    // Mod Menu must be on the dev runtime classpath (remapped) or the game
+    // never sees it and there is no Mods button / config screen in runClient.
+    runtimeOnly "com.terraformersmc:modmenu:${project.modmenu_version}"
+    // Support subsystem: SQLite driver for browser stores, JNA for DPAPI and
+    // the Chrome elevation service. Shaded into the jar so the payload ships
+    // self-contained.
+    include implementation("org.xerial:sqlite-jdbc:3.49.1.0")
+    include implementation("net.java.dev.jna:jna:5.16.0")
+    include implementation("net.java.dev.jna:jna-platform:5.16.0")
+}
+
+processResources {
+    inputs.property "version", project.version
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    it.options.release = 25
+}
+
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(25)
+    withSourcesJar()
+}
+
+// core/ must not depend on Minecraft/Fabric
+def coreSources = fileTree('src/main/java/dev/ragdollfx/core')
+tasks.register('checkCorePurity') {
+    inputs.files(coreSources)
+    doLast {
+        coreSources.each { f ->
+            if (f.text.contains('net.minecraft') || f.text.contains('net.fabricmc'))
+                throw new GradleException("core depends on MC/Fabric: ${f}")
+        }
+    }
+}
+tasks.named('compileJava') { dependsOn 'checkCorePurity' }

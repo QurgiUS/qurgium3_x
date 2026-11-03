@@ -1,0 +1,8 @@
+{
+  "ragdollfx.config.title": "Ragdoll FX",
+  "ragdollfx.config.enabled": "Регдолл трупов",
+  "ragdollfx.config.dismember": "Разрывы",
+  "ragdollfx.config.blood": "Кровь",
+  "ragdollfx.config.players": "Регдолл игроков",
+  "ragdollfx.config.lifetime": "Время исчезновения трупа: %s с"
+}
